@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://c7bft7sm2jvtd"]
+
+[ext_resource type="Texture2D" uid="uid://8xl8hohsob6w" path="res://icon.svg" id="1_kpi06"]
+[ext_resource type="PackedScene" uid="uid://bclky8ogiocai" path="res://assets/scenes/character.tscn" id="2_dfgan"]
+[ext_resource type="Script" uid="uid://crwkkqq3f5t4x" path="res://assets/scenes/camera_2d.gd" id="3_dfgan"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_06ig3"]
+size = Vector2(1161, 247.5)
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("player")]
+position = Vector2(242, 172)
+zoom = Vector2(2.225, 2.225)
+drag_horizontal_offset = -0.16
+script = ExtResource("3_dfgan")
+player = NodePath("../CharacterBody2D")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(586.5, 400.5)
+scale = Vector2(9.0546875, 1.9140626)
+texture = ExtResource("1_kpi06")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(582, 401.75)
+shape = SubResource("RectangleShape2D_06ig3")
+
+[node name="CharacterBody2D" parent="." instance=ExtResource("2_dfgan")]
+position = Vector2(242, 172)

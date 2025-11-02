@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://cm12ldculbi31"]
+
+[ext_resource type="Script" uid="uid://bargjhc7heo2d" path="res://assets/scenes/attack_hb.gd" id="1_21mkv"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_58grx"]
+radius = 20.0
+
+[node name="Area2D" type="Area2D" node_paths=PackedStringArray("timer", "collision")]
+script = ExtResource("1_21mkv")
+timer = NodePath("Timer")
+collision = NodePath("CollisionShape2D")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_58grx")
+
+[node name="Timer" type="Timer" parent="."]
