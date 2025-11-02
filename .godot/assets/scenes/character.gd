@@ -18,7 +18,7 @@ func _ready() -> void:
 	remote.use_global_coordinates = true
 	
 func _physics_process(delta: float) -> void:
-
+	attack_point()
 	#print(remote.global_position)
 	
 	
@@ -87,3 +87,8 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 		#if body.is_in_group("ground"):
 		#	touched_ground.emit()
 		pass
+func attack_point():
+	if $AnimatedSprite2D.flip_h:
+		$"attack point".position.x = -60
+	else:
+		$"attack point".position.x = 0

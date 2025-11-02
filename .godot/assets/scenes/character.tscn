@@ -263,7 +263,9 @@ size = Vector2(21, 38)
 [node name="CharacterBody2D" type="CharacterBody2D"]
 script = ExtResource("1_6po5b")
 
-[node name="Area2D2" parent="." instance=ExtResource("2_k3wpx")]
+[node name="attack point" type="Marker2D" parent="."]
+
+[node name="Area2D2" parent="attack point" instance=ExtResource("2_k3wpx")]
 position = Vector2(29, 22)
 
 [node name="Area2D" type="Area2D" parent="."]
@@ -306,7 +308,7 @@ metadata/_custom_type_script = "uid://d1iniuxq23u1s"
 script = ExtResource("11_k3wpx")
 sprite = NodePath("../../AnimatedSprite2D")
 player = NodePath("../..")
-attack_hitbox = NodePath("../../Area2D2")
+attack_hitbox = NodePath("../../attack point/Area2D2")
 metadata/_custom_type_script = "uid://d1iniuxq23u1s"
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="State_machine/Attack" method="_on_animated_sprite_2d_animation_finished"]
