@@ -1,0 +1,82 @@
+[gd_scene load_steps=10 format=3 uid="uid://x2qefmbqm3yb"]
+
+[ext_resource type="Script" uid="uid://bbbrkoaoox2ut" path="res://assets/scripts/enemy.gd" id="1_ovi8q"]
+[ext_resource type="Texture2D" uid="uid://8xl8hohsob6w" path="res://icon.svg" id="2_t2q6g"]
+[ext_resource type="Script" uid="uid://dpkprhcj6qx5q" path="res://assets/scripts/statemachine.gd" id="3_o3hxu"]
+[ext_resource type="Script" uid="uid://ppyp0evqjluf" path="res://assets/scripts/idle.gd" id="4_yyvcd"]
+[ext_resource type="Script" uid="uid://dp13t22cypraj" path="res://assets/scripts/follow.gd" id="5_ovi8q"]
+[ext_resource type="Script" uid="uid://ud0pwi8ng1u6" path="res://assets/scripts/hurt.gd" id="6_t2q6g"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o3hxu"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ovi8q"]
+size = Vector2(20, 16.464891)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_37lg7"]
+
+[node name="Enemy" type="CharacterBody2D"]
+modulate = Color(0.9116014, 0.9116014, 0.9116014, 1)
+script = ExtResource("1_ovi8q")
+
+[node name="Hitbox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("RectangleShape2D_o3hxu")
+
+[node name="Vision" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Vision"]
+scale = Vector2(6.485, 2.065)
+shape = SubResource("RectangleShape2D_ovi8q")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_37lg7")
+
+[node name="Sprite2D" type="Sprite2D" parent="CollisionShape2D"]
+scale = Vector2(0.165, 0.165)
+texture = ExtResource("2_t2q6g")
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("inital_state")]
+script = ExtResource("3_o3hxu")
+inital_state = NodePath("Idle")
+metadata/_custom_type_script = "uid://dpkprhcj6qx5q"
+
+[node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("enemy")]
+script = ExtResource("4_yyvcd")
+enemy = NodePath("../..")
+metadata/_custom_type_script = "uid://d1iniuxq23u1s"
+
+[node name="Follow" type="Node" parent="StateMachine" node_paths=PackedStringArray("enemy")]
+script = ExtResource("5_ovi8q")
+enemy = NodePath("../..")
+metadata/_custom_type_script = "uid://d1iniuxq23u1s"
+
+[node name="Hurt" type="Node" parent="StateMachine" node_paths=PackedStringArray("enemy")]
+script = ExtResource("6_t2q6g")
+enemy = NodePath("../..")
+metadata/_custom_type_script = "uid://d1iniuxq23u1s"
+
+[node name="Raycasts" type="Node2D" parent="."]
+
+[node name="Right wall" type="RayCast2D" parent="Raycasts"]
+target_position = Vector2(25, 0)
+
+[node name="Left wall" type="RayCast2D" parent="Raycasts"]
+target_position = Vector2(-24, 0)
+
+[node name="Right Floor" type="RayCast2D" parent="Raycasts"]
+position = Vector2(13, 0)
+target_position = Vector2(0, 17)
+
+[node name="Left Floor" type="RayCast2D" parent="Raycasts"]
+position = Vector2(-13, 0)
+target_position = Vector2(0, 17)
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
+
+[connection signal="area_entered" from="Hitbox" to="StateMachine/Hurt" method="_on_hitbox_area_entered"]
+[connection signal="body_entered" from="Vision" to="StateMachine/Idle" method="_on_vision_body_entered"]
+[connection signal="body_exited" from="Vision" to="StateMachine/Follow" method="_on_vision_body_exited"]
+[connection signal="timeout" from="Timer" to="StateMachine/Idle" method="_on_timer_timeout"]

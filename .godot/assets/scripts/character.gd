@@ -89,6 +89,8 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 		pass
 func attack_point():
 	if $AnimatedSprite2D.flip_h:
-		$"attack point".position.x = -60
+		$"attack point".position.x = -20
+		$"attack point/Area2D2".rotation_degrees = 180
 	else:
 		$"attack point".position.x = 0
+		$"attack point/Area2D2".rotation_degrees = 0

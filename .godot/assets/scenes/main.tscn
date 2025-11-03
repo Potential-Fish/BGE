@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://c7bft7sm2jvtd"]
+[gd_scene load_steps=6 format=3 uid="uid://c7bft7sm2jvtd"]
 
 [ext_resource type="Texture2D" uid="uid://8xl8hohsob6w" path="res://icon.svg" id="1_kpi06"]
 [ext_resource type="PackedScene" uid="uid://bclky8ogiocai" path="res://assets/scenes/character.tscn" id="2_dfgan"]
-[ext_resource type="Script" uid="uid://crwkkqq3f5t4x" path="res://assets/scenes/camera_2d.gd" id="3_dfgan"]
+[ext_resource type="Script" uid="uid://crwkkqq3f5t4x" path="res://assets/scripts/camera_2d.gd" id="3_dfgan"]
+[ext_resource type="PackedScene" uid="uid://x2qefmbqm3yb" path="res://assets/scenes/enemy.tscn" id="4_sfrgt"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_06ig3"]
 size = Vector2(1161, 247.5)
@@ -29,3 +30,6 @@ shape = SubResource("RectangleShape2D_06ig3")
 
 [node name="CharacterBody2D" parent="." instance=ExtResource("2_dfgan")]
 position = Vector2(242, 172)
+
+[node name="Enemy" parent="." instance=ExtResource("4_sfrgt")]
+position = Vector2(132, 164)

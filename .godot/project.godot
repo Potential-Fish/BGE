@@ -15,6 +15,10 @@ run/main_scene="uid://c7bft7sm2jvtd"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+Hitstun="*res://assets/scripts/Hitstun.gd"
+
 [input]
 
 "left click"={

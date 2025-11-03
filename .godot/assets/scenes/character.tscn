@@ -1,18 +1,18 @@
 [gd_scene load_steps=46 format=3 uid="uid://bclky8ogiocai"]
 
 [ext_resource type="Texture2D" uid="uid://c3dmgvaslw3dq" path="res://assets/sprite/120x80_PNGSheets/_Idle.png" id="1_0ggam"]
-[ext_resource type="Script" uid="uid://dg4ufnkwewobc" path="res://assets/scenes/character.gd" id="1_6po5b"]
+[ext_resource type="Script" uid="uid://dg4ufnkwewobc" path="res://assets/scripts/character.gd" id="1_6po5b"]
 [ext_resource type="Texture2D" uid="uid://7tcm5omacoqb" path="res://assets/sprite/120x80_PNGSheets/_Run.png" id="2_15r03"]
 [ext_resource type="PackedScene" uid="uid://cm12ldculbi31" path="res://assets/scenes/attack_HB.tscn" id="2_k3wpx"]
 [ext_resource type="Texture2D" uid="uid://d35c5x17dpos3" path="res://assets/sprite/120x80_PNGSheets/_Fall.png" id="2_mlskq"]
 [ext_resource type="Texture2D" uid="uid://p1c04gdgqoyp" path="res://assets/sprite/120x80_PNGSheets/_Attack.png" id="2_ni0wq"]
 [ext_resource type="Texture2D" uid="uid://cfv5ah3xbtexp" path="res://assets/sprite/120x80_PNGSheets/_Jump.png" id="4_ut0ej"]
-[ext_resource type="Script" uid="uid://bssxb6qln0tp2" path="res://assets/scenes/idle.gd" id="5_cecl2"]
-[ext_resource type="Script" uid="uid://dpkprhcj6qx5q" path="res://assets/scenes/statemachine.gd" id="5_kgie5"]
-[ext_resource type="Script" uid="uid://n1o16jhokvqc" path="res://assets/scenes/walk.gd" id="6_m51mg"]
+[ext_resource type="Script" uid="uid://bssxb6qln0tp2" path="res://assets/scripts/idle (2).gd" id="5_cecl2"]
+[ext_resource type="Script" uid="uid://dpkprhcj6qx5q" path="res://assets/scripts/statemachine.gd" id="5_kgie5"]
+[ext_resource type="Script" uid="uid://n1o16jhokvqc" path="res://assets/scripts/walk.gd" id="6_m51mg"]
 [ext_resource type="Texture2D" uid="uid://drf5w07v2vhri" path="res://assets/sprite/120x80_PNGSheets/_Jump-Sheet-export1.png" id="7_0yj1m"]
-[ext_resource type="Script" uid="uid://docwl7whchfhj" path="res://assets/scenes/jump.gd" id="7_m51mg"]
-[ext_resource type="Script" uid="uid://5yhrkvbpd2uy" path="res://assets/scenes/attack.gd" id="11_k3wpx"]
+[ext_resource type="Script" uid="uid://docwl7whchfhj" path="res://assets/scripts/jump.gd" id="7_m51mg"]
+[ext_resource type="Script" uid="uid://5yhrkvbpd2uy" path="res://assets/scripts/attack.gd" id="11_k3wpx"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lgf14"]
 atlas = ExtResource("2_ni0wq")
@@ -266,7 +266,10 @@ script = ExtResource("1_6po5b")
 [node name="attack point" type="Marker2D" parent="."]
 
 [node name="Area2D2" parent="attack point" instance=ExtResource("2_k3wpx")]
-position = Vector2(29, 22)
+position = Vector2(10, 21)
+
+[node name="CollisionShape2D" parent="attack point/Area2D2" index="0"]
+position = Vector2(19, 0)
 
 [node name="Area2D" type="Area2D" parent="."]
 
@@ -312,3 +315,5 @@ attack_hitbox = NodePath("../../attack point/Area2D2")
 metadata/_custom_type_script = "uid://d1iniuxq23u1s"
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="State_machine/Attack" method="_on_animated_sprite_2d_animation_finished"]
+
+[editable path="attack point/Area2D2"]
