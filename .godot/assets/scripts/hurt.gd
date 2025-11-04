@@ -27,7 +27,9 @@ func _on_hitbox_area_entered(area: Area2D) -> void:
 	#enters this state
 	if area.is_in_group("attackHB") and enemy.invincible_timer <=0:
 		
-		
+		var weapon = area.get_parent().get_parent().weapon.current_weapon.damage
+		print(weapon)
+		enemy.health = enemy.take_damage(enemy.health, weapon)
 		state_machine.change_state("hurt")
 		
 		direction_kb = Vector2(area.global_position - enemy.global_position).normalized()

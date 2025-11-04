@@ -1,8 +1,9 @@
-[gd_scene load_steps=46 format=3 uid="uid://bclky8ogiocai"]
+[gd_scene load_steps=47 format=3 uid="uid://bclky8ogiocai"]
 
 [ext_resource type="Texture2D" uid="uid://c3dmgvaslw3dq" path="res://assets/sprite/120x80_PNGSheets/_Idle.png" id="1_0ggam"]
 [ext_resource type="Script" uid="uid://dg4ufnkwewobc" path="res://assets/scripts/character.gd" id="1_6po5b"]
 [ext_resource type="Texture2D" uid="uid://7tcm5omacoqb" path="res://assets/sprite/120x80_PNGSheets/_Run.png" id="2_15r03"]
+[ext_resource type="Script" uid="uid://dswwphq4d0dp8" path="res://assets/scripts/weapons.gd" id="2_gvc1m"]
 [ext_resource type="PackedScene" uid="uid://cm12ldculbi31" path="res://assets/scenes/attack_HB.tscn" id="2_k3wpx"]
 [ext_resource type="Texture2D" uid="uid://d35c5x17dpos3" path="res://assets/sprite/120x80_PNGSheets/_Fall.png" id="2_mlskq"]
 [ext_resource type="Texture2D" uid="uid://p1c04gdgqoyp" path="res://assets/sprite/120x80_PNGSheets/_Attack.png" id="2_ni0wq"]
@@ -219,7 +220,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"jump attack",
-"speed": 10.0
+"speed": 15.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -260,8 +261,12 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5baey"]
 size = Vector2(21, 38)
 
-[node name="CharacterBody2D" type="CharacterBody2D"]
+[node name="CharacterBody2D" type="CharacterBody2D" node_paths=PackedStringArray("weapon") groups=["player"]]
 script = ExtResource("1_6po5b")
+weapon = NodePath("Weapons")
+
+[node name="Weapons" type="Node" parent="."]
+script = ExtResource("2_gvc1m")
 
 [node name="attack point" type="Marker2D" parent="."]
 
@@ -277,7 +282,7 @@ position = Vector2(19, 0)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_tqq5q")
-animation = &"fall"
+animation = &"jump attack"
 autoplay = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -314,6 +319,7 @@ player = NodePath("../..")
 attack_hitbox = NodePath("../../attack point/Area2D2")
 metadata/_custom_type_script = "uid://d1iniuxq23u1s"
 
+[connection signal="body_entered" from="attack point/Area2D2" to="." method="_on_area_2d_2_body_entered"]
 [connection signal="animation_finished" from="AnimatedSprite2D" to="State_machine/Attack" method="_on_animated_sprite_2d_animation_finished"]
 
 [editable path="attack point/Area2D2"]

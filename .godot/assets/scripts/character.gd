@@ -9,7 +9,6 @@ var facing_dir:String = "right"
 var largest
 signal touched_ground
 var remote = RemoteTransform2D.new()
-
 @export var weapon:Node
 func _ready() -> void:
 	$AnimatedSprite2D.frame = 5
@@ -82,10 +81,7 @@ func _on_area_2d_area_entered(area: Area2D) -> void:
 		
 		apply_knockback(direction,400,0.12)
 
-
-func _on_area_2d_body_entered(body: Node2D) -> void:
-		#if body.is_in_group("ground"):
-		#	touched_ground.emit()
+		
 		pass
 func attack_point():
 	if $AnimatedSprite2D.flip_h:
@@ -94,3 +90,11 @@ func attack_point():
 	else:
 		$"attack point".position.x = 0
 		$"attack point/Area2D2".rotation_degrees = 0
+		
+
+
+
+func _on_area_2d_2_body_entered(body: Node2D) -> void:
+	if body.is_in_group("enemy"):
+		var enemy = body
+		

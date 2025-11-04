@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://c7bft7sm2jvtd"]
+[gd_scene load_steps=7 format=3 uid="uid://c7bft7sm2jvtd"]
 
 [ext_resource type="Texture2D" uid="uid://8xl8hohsob6w" path="res://icon.svg" id="1_kpi06"]
 [ext_resource type="PackedScene" uid="uid://bclky8ogiocai" path="res://assets/scenes/character.tscn" id="2_dfgan"]
 [ext_resource type="Script" uid="uid://crwkkqq3f5t4x" path="res://assets/scripts/camera_2d.gd" id="3_dfgan"]
 [ext_resource type="PackedScene" uid="uid://x2qefmbqm3yb" path="res://assets/scenes/enemy.tscn" id="4_sfrgt"]
+[ext_resource type="PackedScene" uid="uid://ddifp2c1vdfvk" path="res://assets/scenes/weapon_cahnge.tscn" id="5_etxf0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_06ig3"]
 size = Vector2(1161, 247.5)
@@ -33,3 +34,7 @@ position = Vector2(242, 172)
 
 [node name="Enemy" parent="." instance=ExtResource("4_sfrgt")]
 position = Vector2(132, 164)
+
+[node name="Area2D" parent="." instance=ExtResource("5_etxf0")]
+position = Vector2(494.00003, 200)
+scale = Vector2(0.24, 0.24)

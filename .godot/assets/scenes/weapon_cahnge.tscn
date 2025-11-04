@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://ddifp2c1vdfvk"]
+
+[ext_resource type="Script" uid="uid://o3krjqmbpvew" path="res://assets/scripts/weapon_change.gd" id="1_gqvj0"]
+[ext_resource type="Texture2D" uid="uid://8xl8hohsob6w" path="res://icon.svg" id="2_qiyom"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_yoo61"]
+
+[node name="Area2D" type="Area2D"]
+modulate = Color(1, 0.40392157, 1, 1)
+self_modulate = Color(0.30588236, 1, 1, 1)
+script = ExtResource("1_gqvj0")
+
+[node name="Label" type="Label" parent="."]
+offset_left = -62.0
+offset_top = -95.0
+offset_right = 62.0
+offset_bottom = -72.0
+text = "Weapon change"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_qiyom")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_yoo61")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
