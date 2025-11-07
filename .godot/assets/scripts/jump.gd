@@ -4,7 +4,8 @@ extends State
 
 func enter():
 
-	player.velocity.y += -300
+	if Input.is_action_just_pressed("ui_accept"):
+		player.velocity.y += -750
 
 	
 func physics_update(delta):

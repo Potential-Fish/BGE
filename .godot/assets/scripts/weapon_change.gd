@@ -7,4 +7,4 @@ func _on_body_entered(body: Node2D) -> void:
 		var player = body
 		
 		player.weapon.change_weapon(player.weapon.weapon1)
-		print(player.weapon)
+		

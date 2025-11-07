@@ -1,27 +1,21 @@
 extends CharacterBody2D
 
 var input_order:Array
-var speed: int = 15000
+var speed: int = 30000
 var knockback_timer:float
 var knockback:Vector2
 var direction
 var facing_dir:String = "right"
 var largest
 signal touched_ground
-var remote = RemoteTransform2D.new()
+
 @export var weapon:Node
 func _ready() -> void:
 	$AnimatedSprite2D.frame = 5
-	add_child(remote)
-	remote.set_remote_node("enemy")
-	remote.use_global_coordinates = true
-	
+
 func _physics_process(delta: float) -> void:
 	attack_point()
-	#print(remote.global_position)
 	
-	
-	remote.set_update_position(true)
 	if Input.is_action_just_pressed("left click"):
 		
 		pass
@@ -54,9 +48,9 @@ func _physics_process(delta: float) -> void:
 		$AnimatedSprite2D.flip_h = false
 
 	if velocity.y > 0:
-		velocity.y += get_gravity().y * 2 * delta
+		velocity.y += get_gravity().y * 3 * delta
 	elif velocity.y <=0:
-		velocity.y += get_gravity().y * delta
+		velocity.y += get_gravity().y * 2 * delta
 	
 	
 	
@@ -76,6 +70,7 @@ func apply_knockback(direction:Vector2,force:int,duration:float):
 
 
 func _on_area_2d_area_entered(area: Area2D) -> void:
+	#doesnt work rn, need to add hurt state
 	if area.is_in_group("enemy"):
 		direction = Vector2(area.global_position - global_position).normalized()
 		
@@ -84,6 +79,7 @@ func _on_area_2d_area_entered(area: Area2D) -> void:
 		
 		pass
 func attack_point():
+	#makes sure youre attacking the right direction
 	if $AnimatedSprite2D.flip_h:
 		$"attack point".position.x = -20
 		$"attack point/Area2D2".rotation_degrees = 180

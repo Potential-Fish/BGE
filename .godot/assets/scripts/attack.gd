@@ -35,7 +35,11 @@ func exit():
 
 
 func _on_animated_sprite_2d_animation_finished() -> void:
-		if is_attacking:
+		if is_attacking and player.is_on_floor():
 			state_machine.change_state("idle")
+			attack_hitbox.hide()
+			attack_hitbox.collision.disabled = true
+		elif is_attacking and player.is_on_floor() == false:
+			state_machine.change_state("jump")
 			attack_hitbox.hide()
 			attack_hitbox.collision.disabled = true

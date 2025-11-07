@@ -6,11 +6,14 @@
 radius = 20.0
 
 [node name="Area2D" type="Area2D" node_paths=PackedStringArray("timer", "collision") groups=["attackHB"]]
+visible = false
 script = ExtResource("1_21mkv")
 timer = NodePath("Timer")
 collision = NodePath("CollisionShape2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_58grx")
+disabled = true
 
 [node name="Timer" type="Timer" parent="."]
+autostart = true
