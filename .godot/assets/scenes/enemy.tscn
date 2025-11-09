@@ -17,7 +17,7 @@ size = Vector2(36, 47)
 size = Vector2(14, 25.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ovi8q"]
-size = Vector2(39.013107, 56.6586)
+size = Vector2(39.013107, 40.96852)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_op2aq"]
 atlas = ExtResource("2_yyvcd")
@@ -259,8 +259,9 @@ size = Vector2(12, 22)
 
 [node name="Enemy" type="CharacterBody2D" node_paths=PackedStringArray("sprite")]
 modulate = Color(0.9116014, 0.9116014, 0.9116014, 1)
+scale = Vector2(10, 10)
 script = ExtResource("1_ovi8q")
-speed = 30000
+speed = 15000
 health = 25
 sprite = NodePath("Sprite2D")
 
@@ -290,8 +291,8 @@ shape = SubResource("RectangleShape2D_o3hxu")
 [node name="Vision" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Vision"]
-position = Vector2(1.5000019, -41.500004)
-scale = Vector2(6.485, 2.065)
+position = Vector2(1.5000017, -25.299994)
+scale = Vector2(6.4849997, 2.065)
 shape = SubResource("RectangleShape2D_ovi8q")
 
 [node name="Sprite2D" type="AnimatedSprite2D" parent="."]

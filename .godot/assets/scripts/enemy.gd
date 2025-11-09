@@ -43,6 +43,7 @@ func _physics_process(delta: float) -> void:
 
 func _on_attack_range_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player"):	
+		print("wat?")
 		player_in_attack_range = true
 
 
