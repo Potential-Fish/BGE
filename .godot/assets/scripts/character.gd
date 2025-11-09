@@ -15,7 +15,7 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	attack_point()
-	
+	Global.player_position = global_position
 	if Input.is_action_just_pressed("left click"):
 		
 		pass

@@ -1,5 +1,6 @@
 extends State
 @export var enemy:CharacterBody2D
+var player_in_range:bool = false
 var rng = RandomNumberGenerator.new()
 func update(delta):
 	#changes direction based on raycast collision
@@ -10,16 +11,14 @@ func update(delta):
 	
 func physics_update(delta):
 	#movement
-	enemy.velocity.x = enemy.direction * enemy.speed * delta
-	enemy.vision.position.x = 70 * enemy.direction 
-
-
-func _on_vision_body_entered(body: Node2D) -> void:
-	#chages state
-	if state_machine.current_state == self:
+	enemy.velocity.x = enemy.direction * enemy.speed * delta 
+	if player_in_range and enemy.direction == enemy.player_direction:
 		state_machine.change_state("follow")
 
+func _on_vision_body_entered(body: Node2D) -> void:
+	player_in_range = true
 
+	
 func _on_timer_timeout() -> void:
 	#randomly changes the direction
 	if state_machine.current_state == self:
@@ -28,3 +27,7 @@ func _on_timer_timeout() -> void:
 		if random >= 5:
 			print(enemy.direction)
 			enemy.direction = enemy.direction * -1
+
+
+func _on_vision_body_exited(body: Node2D) -> void:
+	player_in_range = false

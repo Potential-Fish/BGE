@@ -10,7 +10,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o3hxu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ovi8q"]
-size = Vector2(20, 16.464891)
+size = Vector2(39.013107, 56.6586)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_37lg7"]
 
@@ -35,6 +35,7 @@ shape = SubResource("RectangleShape2D_o3hxu")
 [node name="Vision" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Vision"]
+position = Vector2(1.5000019, -41.500004)
 scale = Vector2(6.485, 2.065)
 shape = SubResource("RectangleShape2D_ovi8q")
 
@@ -56,9 +57,10 @@ script = ExtResource("4_yyvcd")
 enemy = NodePath("../..")
 metadata/_custom_type_script = "uid://d1iniuxq23u1s"
 
-[node name="Follow" type="Node" parent="StateMachine" node_paths=PackedStringArray("enemy")]
+[node name="Follow" type="Node" parent="StateMachine" node_paths=PackedStringArray("enemy", "idle")]
 script = ExtResource("5_ovi8q")
 enemy = NodePath("../..")
+idle = NodePath("../Idle")
 metadata/_custom_type_script = "uid://d1iniuxq23u1s"
 
 [node name="Hurt" type="Node" parent="StateMachine" node_paths=PackedStringArray("enemy")]
@@ -88,5 +90,6 @@ autostart = true
 
 [connection signal="area_entered" from="Hitbox" to="StateMachine/Hurt" method="_on_hitbox_area_entered"]
 [connection signal="body_entered" from="Vision" to="StateMachine/Idle" method="_on_vision_body_entered"]
+[connection signal="body_exited" from="Vision" to="StateMachine/Idle" method="_on_vision_body_exited"]
 [connection signal="body_exited" from="Vision" to="StateMachine/Follow" method="_on_vision_body_exited"]
 [connection signal="timeout" from="Timer" to="StateMachine/Idle" method="_on_timer_timeout"]

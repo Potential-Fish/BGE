@@ -9,6 +9,7 @@ extends enemy_stats
 @export var health:int
 var invincible_timer = 0
 var direction = 1
+var player_direction
 func _process(delta: float) -> void:
 	$Label.text = str(health)
 	if invincible_timer > 0:
@@ -17,6 +18,12 @@ func _physics_process(delta: float) -> void:
 	#gravity pog
 	if is_on_floor() == false:
 		velocity.y = delta * get_gravity().y * 20
+	
+	if global_position.x - Global.player_position.x <= 0:
+		player_direction = 1
+	else:
+		player_direction = -1	
+		
 	#death rip bozo
 	if health <= 0:
 		await get_tree().create_timer(0.1).timeout
