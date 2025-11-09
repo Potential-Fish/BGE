@@ -1,8 +1,10 @@
 extends State
 @export var player:CharacterBody2D
 @export var sprite:AnimatedSprite2D
+@export var attack_hitbox:Area2D
 func enter():
-	
+	attack_hitbox.hide()
+	attack_hitbox.collision.disabled = true	
 	player.velocity.x = 0
 	sprite.animation = "idle"
 

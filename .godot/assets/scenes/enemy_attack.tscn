@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://dj8bav16rwk1x"]
+
+[ext_resource type="Script" uid="uid://dlj1pxvcscrn6" path="res://assets/scripts/enemy_attack.gd" id="1_yayrv"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fvmad"]
+
+[node name="Enemy Attack" type="Area2D" node_paths=PackedStringArray("collision")]
+visible = false
+scale = Vector2(2, 2)
+script = ExtResource("1_yayrv")
+collision = NodePath("CollisionShape2D")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["enemy_attack_HB"]]
+shape = SubResource("CircleShape2D_fvmad")
+disabled = true

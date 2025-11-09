@@ -1,9 +1,11 @@
 extends State
 @export var sprite:AnimatedSprite2D
 @export var player:CharacterBody2D
+@export var attack_hitbox:Area2D
 
 func enter():
-
+	attack_hitbox.hide()
+	attack_hitbox.collision.disabled = true
 	if Input.is_action_just_pressed("ui_accept"):
 		player.velocity.y += -750
 

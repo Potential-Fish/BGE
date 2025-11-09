@@ -5,25 +5,30 @@ var speed: int = 30000
 var knockback_timer:float
 var knockback:Vector2
 var direction
+var direction_KB
 var facing_dir:String = "right"
 var largest
 signal touched_ground
-
+var health:int = 25
 @export var weapon:Node
+@export var state_machine:StateMachine
 func _ready() -> void:
 	$AnimatedSprite2D.frame = 5
 
 func _physics_process(delta: float) -> void:
 	attack_point()
 	Global.player_position = global_position
+	Global.player_local_pos = position
 	if Input.is_action_just_pressed("left click"):
 		
 		pass
 	if knockback_timer > 0:
-		print(knockback_timer)
+		
 		$".".velocity = -knockback
 		knockback_timer -= delta 
-	
+		if knockback_timer <= 0:
+			knockback_timer = 0
+			state_machine.change_state("idle")
 
 
 	
@@ -57,8 +62,6 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 
-
-	
 	
 func apply_knockback(direction:Vector2,force:int,duration:float):
 
@@ -66,18 +69,8 @@ func apply_knockback(direction:Vector2,force:int,duration:float):
 	
 	knockback_timer = duration
 
-
-
-
-func _on_area_2d_area_entered(area: Area2D) -> void:
-	#doesnt work rn, need to add hurt state
-	if area.is_in_group("enemy"):
-		direction = Vector2(area.global_position - global_position).normalized()
 		
-		apply_knockback(direction,400,0.12)
-
-		
-		pass
+	
 func attack_point():
 	#makes sure youre attacking the right direction
 	if $AnimatedSprite2D.flip_h:
@@ -93,4 +86,15 @@ func attack_point():
 func _on_area_2d_2_body_entered(body: Node2D) -> void:
 	if body.is_in_group("enemy"):
 		var enemy = body
+		
+
+
+
+func _on_hitbox_area_entered(area: Area2D) -> void:
+	# needs changing, so the damage and kb gets decided on the enemy side
+	if area.is_in_group("enemy_attack_HB") or area.is_in_group("enemy"):
+		direction_KB = Vector2(area.get_parent().global_position - global_position).normalized()
+		state_machine.change_state("Hurt")
+		print(area)
+		
 		

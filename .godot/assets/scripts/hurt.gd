@@ -1,10 +1,13 @@
 extends State
 @export var enemy:CharacterBody2D
+@export var attack_hb:Area2D
 var knockback 
 var knockback_timer
 var direction_kb
 
 func enter():
+	attack_hb.hide()
+	attack_hb.collision.disabled = true
 	enemy.invincible_timer = 0.14
 	enemy.velocity.x = 0
 	

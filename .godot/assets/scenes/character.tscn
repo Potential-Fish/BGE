@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=3 uid="uid://bclky8ogiocai"]
+[gd_scene load_steps=49 format=3 uid="uid://bclky8ogiocai"]
 
 [ext_resource type="Texture2D" uid="uid://c3dmgvaslw3dq" path="res://assets/sprite/120x80_PNGSheets/_Idle.png" id="1_0ggam"]
 [ext_resource type="Script" uid="uid://dg4ufnkwewobc" path="res://assets/scripts/character.gd" id="1_6po5b"]
@@ -14,6 +14,10 @@
 [ext_resource type="Texture2D" uid="uid://drf5w07v2vhri" path="res://assets/sprite/120x80_PNGSheets/_Jump-Sheet-export1.png" id="7_0yj1m"]
 [ext_resource type="Script" uid="uid://docwl7whchfhj" path="res://assets/scripts/jump.gd" id="7_m51mg"]
 [ext_resource type="Script" uid="uid://5yhrkvbpd2uy" path="res://assets/scripts/attack.gd" id="11_k3wpx"]
+[ext_resource type="Script" uid="uid://etmgip34lghj" path="res://assets/scripts/playerhurt.gd" id="15_nhqhs"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bj5t6"]
+size = Vector2(15, 36.5)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lgf14"]
 atlas = ExtResource("2_ni0wq")
@@ -261,9 +265,10 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5baey"]
 size = Vector2(21, 38)
 
-[node name="CharacterBody2D" type="CharacterBody2D" node_paths=PackedStringArray("weapon") groups=["player"]]
+[node name="CharacterBody2D" type="CharacterBody2D" node_paths=PackedStringArray("weapon", "state_machine") groups=["player"]]
 script = ExtResource("1_6po5b")
 weapon = NodePath("Weapons")
+state_machine = NodePath("State_machine")
 
 [node name="Weapons" type="Node" parent="."]
 script = ExtResource("2_gvc1m")
@@ -276,9 +281,11 @@ position = Vector2(10, 21)
 [node name="CollisionShape2D" parent="attack point/Area2D2" index="0"]
 position = Vector2(19, 0)
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="Hitbox" type="Area2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(-1.5, 22.25)
+shape = SubResource("RectangleShape2D_bj5t6")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_tqq5q")
@@ -294,22 +301,25 @@ one_way_collision = true
 script = ExtResource("5_kgie5")
 inital_state = NodePath("Idle")
 
-[node name="Idle" type="Node" parent="State_machine" node_paths=PackedStringArray("player", "sprite")]
+[node name="Idle" type="Node" parent="State_machine" node_paths=PackedStringArray("player", "sprite", "attack_hitbox")]
 script = ExtResource("5_cecl2")
 player = NodePath("../..")
 sprite = NodePath("../../AnimatedSprite2D")
+attack_hitbox = NodePath("../../attack point/Area2D2")
 metadata/_custom_type_script = "uid://d1iniuxq23u1s"
 
-[node name="Walk" type="Node" parent="State_machine" node_paths=PackedStringArray("sprite", "player")]
+[node name="Walk" type="Node" parent="State_machine" node_paths=PackedStringArray("sprite", "player", "attack_hitbox")]
 script = ExtResource("6_m51mg")
 sprite = NodePath("../../AnimatedSprite2D")
 player = NodePath("../..")
+attack_hitbox = NodePath("../../attack point/Area2D2")
 metadata/_custom_type_script = "uid://d1iniuxq23u1s"
 
-[node name="Jump" type="Node" parent="State_machine" node_paths=PackedStringArray("sprite", "player")]
+[node name="Jump" type="Node" parent="State_machine" node_paths=PackedStringArray("sprite", "player", "attack_hitbox")]
 script = ExtResource("7_m51mg")
 sprite = NodePath("../../AnimatedSprite2D")
 player = NodePath("../..")
+attack_hitbox = NodePath("../../attack point/Area2D2")
 metadata/_custom_type_script = "uid://d1iniuxq23u1s"
 
 [node name="Attack" type="Node" parent="State_machine" node_paths=PackedStringArray("sprite", "player", "attack_hitbox")]
@@ -319,7 +329,15 @@ player = NodePath("../..")
 attack_hitbox = NodePath("../../attack point/Area2D2")
 metadata/_custom_type_script = "uid://d1iniuxq23u1s"
 
+[node name="Hurt" type="Node" parent="State_machine" node_paths=PackedStringArray("sprite", "player", "attack_hitbox")]
+script = ExtResource("15_nhqhs")
+sprite = NodePath("../../AnimatedSprite2D")
+player = NodePath("../..")
+attack_hitbox = NodePath("../../attack point/Area2D2")
+metadata/_custom_type_script = "uid://d1iniuxq23u1s"
+
 [connection signal="body_entered" from="attack point/Area2D2" to="." method="_on_area_2d_2_body_entered"]
+[connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
 [connection signal="animation_finished" from="AnimatedSprite2D" to="State_machine/Attack" method="_on_animated_sprite_2d_animation_finished"]
 
 [editable path="attack point/Area2D2"]
