@@ -21,12 +21,14 @@ func update(delta):
 	
 func physics_update(delta):
 	#movement
+	
 	enemy.velocity.x = enemy.direction * enemy.speed * delta 
 	if player_in_range and enemy.direction == enemy.player_direction:
 		state_machine.change_state("follow")
 		
 func _on_vision_body_entered(body: Node2D) -> void:
-	player_in_range = true
+	if body.is_in_group("player"):
+		player_in_range = true
 
 	
 func _on_timer_timeout() -> void:
@@ -40,4 +42,5 @@ func _on_timer_timeout() -> void:
 
 
 func _on_vision_body_exited(body: Node2D) -> void:
-	player_in_range = false
+	if body.is_in_group("player"):
+		player_in_range = false

@@ -7,7 +7,7 @@ func enter():
 	attack_hitbox.hide()
 	attack_hitbox.collision.disabled = true
 	if Input.is_action_just_pressed("ui_accept"):
-		player.velocity.y += -750
+		player.velocity.y += -900
 
 	
 func physics_update(delta):
