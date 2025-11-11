@@ -5,9 +5,10 @@ func hitstun(enemy):
 	if enemy != null:
 		await get_tree().create_timer(0.1,false,false,true).timeout
 		Engine.time_scale = 0
-		enemy.modulate = Color("blue")
+		#enemy.modulate = Color("blue")
 	
 		await get_tree().create_timer(0.1,false,false,true).timeout
 		Engine.time_scale = 1
 	if enemy != null:
-		enemy.modulate =Color("white")
+		#enemy.modulate =Color("white")
+		pass

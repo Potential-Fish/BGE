@@ -9,12 +9,12 @@ func physics_update(delta):
 	#follows the player, could use updating to follow even when leaving area so it follows when you jump above
 	enemy.direction = enemy.player_direction
 	enemy.velocity.x = enemy.player_direction * follow_speed * delta
-	enemy.modulate = Color("red")
+
 	
 	if enemy.player_in_attack_range:
 		state_machine.change_state("attack")
 func exit():
-	enemy.modulate = Color("blue")
+	pass
 
 
 func _on_vision_body_exited(body: Node2D) -> void:

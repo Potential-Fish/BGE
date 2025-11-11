@@ -1,6 +1,7 @@
 extends State
 @export var enemy:CharacterBody2D
 @export var attack_hb:Area2D
+@export var particles:CPUParticles2D
 var knockback 
 var knockback_timer
 var direction_kb
@@ -39,7 +40,8 @@ func _on_hitbox_area_entered(area: Area2D) -> void:
 		apply_knockback(direction_kb,400,0.18)
 		
 func apply_knockback(direction_kb,force,kb_timer):
-	
+	particles.direction.x = -enemy.direction
+	particles.emitting = true
 	Hitstun.hitstun(enemy)
 	knockback = direction_kb * force
 	knockback_timer = kb_timer

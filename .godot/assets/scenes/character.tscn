@@ -314,6 +314,7 @@ animations = [{
 size = Vector2(21, 38)
 
 [node name="CharacterBody2D" type="CharacterBody2D" node_paths=PackedStringArray("weapon", "state_machine") groups=["player"]]
+z_index = 1
 script = ExtResource("1_6po5b")
 weapon = NodePath("Weapons")
 state_machine = NodePath("State_machine")

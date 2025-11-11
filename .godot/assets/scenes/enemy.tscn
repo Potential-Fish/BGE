@@ -325,10 +325,11 @@ sprite = NodePath("../../Sprite2D")
 idle = NodePath("../Idle")
 metadata/_custom_type_script = "uid://d1iniuxq23u1s"
 
-[node name="Hurt" type="Node" parent="StateMachine" node_paths=PackedStringArray("enemy", "attack_hb")]
+[node name="Hurt" type="Node" parent="StateMachine" node_paths=PackedStringArray("enemy", "attack_hb", "particles")]
 script = ExtResource("6_t2q6g")
 enemy = NodePath("../..")
 attack_hb = NodePath("../../Enemy Attack")
+particles = NodePath("../../CPUParticles2D")
 metadata/_custom_type_script = "uid://d1iniuxq23u1s"
 
 [node name="Attack" type="Node" parent="StateMachine" node_paths=PackedStringArray("enemy", "sprite", "attack_hb")]
@@ -353,6 +354,21 @@ target_position = Vector2(0, 17)
 [node name="Left Floor" type="RayCast2D" parent="Raycasts"]
 position = Vector2(-13, 0)
 target_position = Vector2(0, 17)
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+scale = Vector2(0.14285713, 0.14285713)
+emitting = false
+lifetime = 1.09
+one_shot = true
+speed_scale = 9.64
+explosiveness = 1.0
+direction = Vector2(-1, 0)
+spread = 78.4
+gravity = Vector2(0, 0)
+initial_velocity_min = 113.25
+initial_velocity_max = 247.77
+scale_amount_min = 7.35
+scale_amount_max = 21.82
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 2.0

@@ -24,6 +24,7 @@ func update(_delta:float):
 			
 			sprite.play("jump attack")
 			is_attacking = true
+
 		if player.is_on_floor() == true:
 			if attack_combo == 0:
 				sprite.play("Attack")
@@ -35,8 +36,10 @@ func update(_delta:float):
 		
 func physics_update(delta):
 	if player.is_on_floor():
-		player.velocity.x = lerpf(player.velocity.x,0,0.1)
-	
+		player.velocity.x = lerpf(player.velocity.x,0,0.2)
+	else:
+		if player.input_order.size() > 0:
+			player.velocity.x = player.input_order.back() * player.speed * delta
 
 func exit():
 	print("Exit")
