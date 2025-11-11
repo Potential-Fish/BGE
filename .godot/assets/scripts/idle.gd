@@ -35,7 +35,7 @@ func _on_timer_timeout() -> void:
 	#randomly changes the direction
 	if state_machine.current_state == self:
 		var random = rng.randf_range(1,10)
-		print(random)
+	
 		if random >= 5:
 			
 			enemy.direction = enemy.direction * -1

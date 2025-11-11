@@ -5,8 +5,7 @@ extends State
 var knockback_timer:float
 var knockback:Vector2
 func enter():
-	attack_hitbox.hide()
-	attack_hitbox.collision.disabled = true
+
 	player.velocity = Vector2.ZERO
 	
 	player.apply_knockback(player.direction_KB,400,0.12)

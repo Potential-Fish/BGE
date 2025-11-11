@@ -6,7 +6,7 @@ var is_attacking:bool = false
 func enter():
 	if is_attacking == false:
 		is_attacking = true
-		print("attack")
+		
 		enemy.velocity.x = 0
 		sprite.animation = "Attack"
 		if enemy.direction == 1:
@@ -28,4 +28,7 @@ func _on_sprite_2d_animation_finished() -> void:
 	if state_machine.current_state == self:
 
 		state_machine.change_state("follow")
-		print("state")
+		
+func exit():
+	attack_hb.hide()
+	set_deferred("attack_hb.collision.disabled",true) 

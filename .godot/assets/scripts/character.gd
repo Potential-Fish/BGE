@@ -19,7 +19,7 @@ func _physics_process(delta: float) -> void:
 	attack_point()
 	Global.player_position = global_position
 	Global.player_local_pos = position
-	print(state_machine.current_state)
+	
 	if Input.is_action_just_pressed("left click"):
 		
 		pass
@@ -35,7 +35,7 @@ func _physics_process(delta: float) -> void:
 	
 	if Input.is_action_just_pressed("left"):
 		input_order.append(-1)
-		print("left")
+		
 	if Input.is_action_just_pressed("right"):
 		input_order.append(1)
 		facing_dir = "right"
@@ -96,6 +96,6 @@ func _on_hitbox_area_entered(area: Area2D) -> void:
 	if area.is_in_group("enemy_attack_HB") or area.is_in_group("enemy"):
 		direction_KB = Vector2(area.get_parent().global_position - global_position).normalized()
 		state_machine.change_state("Hurt")
-		print(area)
+	
 		
 		
